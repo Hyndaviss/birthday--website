@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday My Love! ❤️ | A Special Celebration</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💖</text></svg>">
+</head>
+<body>
+
+  <!-- Floating Ambient Canvas & Celebration Canvas -->
+  <canvas id="heartsCanvas"></canvas>
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- Sticky Navbar -->
+  <nav class="navbar">
+    <div class="logo-wrap">
+      <span class="logo-heart">💖</span>
+      <span class="logo-text">Happy Birthday, <span class="dynamic-bf-name">My Love</span></span>
+    </div>
+    <div class="nav-controls">
+      <!-- Music controls -->
+      <button id="musicToggleBtn" class="nav-btn" onclick="toggleBgm()">
+        <span id="musicIcon">🎵</span>
+        <span id="musicLabel">Play Music</span>
+      </button>
+
+      <!-- Custom song upload trigger -->
+      <label class="nav-btn" style="cursor: pointer;" title="Upload your favorite Telugu or romantic song">
+        <span>🎧 Song</span>
+        <input type="file" id="customMusicInput" accept="audio/*" style="display: none;" onchange="handleCustomMusicUpload(event)" />
+      </label>
+
+      <!-- Settings trigger -->
+      <button class="nav-btn" onclick="openSettingsModal()" title="Customize Name and Date">
+        <span>⚙️ Personalize</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- Hero Section -->
+    <header class="hero-section">
+      <div class="badge-tag">✨ A Very Special Day For Someone Incredibly Special ✨</div>
+      <h1 class="hero-title">Happy Birthday, <span class="dynamic-bf-name">My Love</span>!</h1>
+      <p class="hero-subtitle">
+        To the boy who brings infinite warmth, comfort, and laughter into my life. Today is all about celebrating YOU!
+      </p>
+
+      <div class="hero-actions">
+        <a href="#letterSection" class="btn-primary">💌 Read Love Letter</a>
+        <a href="#gallerySection" class="btn-secondary">📸 Our Photo Album</a>
+        <a href="#cakeSection" class="btn-secondary">🎂 Blow The Candles</a>
+        <button class="btn-secondary" onclick="fireConfettiBurst(150)">🎉 Shower Confetti</button>
+      </div>
+
+      <!-- Live Birthday Countdown / Celebration Box -->
+      <div class="countdown-box">
+        <div class="countdown-title" id="countdownTitle">COUNTDOWN TO YOUR SPECIAL DAY</div>
+        <div class="countdown-timer">
+          <div class="timer-item">
+            <span class="timer-num" id="countDays">00</span>
+            <span class="timer-lbl">Days</span>
+          </div>
+          <div class="timer-item">
+            <span class="timer-num" id="countHours">00</span>
+            <span class="timer-lbl">Hours</span>
+          </div>
+          <div class="timer-item">
+            <span class="timer-num" id="countMins">00</span>
+            <span class="timer-lbl">Mins</span>
+          </div>
+          <div class="timer-item">
+            <span class="timer-num" id="countSecs">00</span>
+            <span class="timer-lbl">Secs</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- SECTION 1: EDITABLE LOVE LETTER -->
+    <section class="section" id="letterSection">
+      <div class="section-header">
+        <div class="section-tag">Straight From My Heart</div>
+        <h2 class="section-title">A Birthday Letter For You 💌</h2>
+        <p class="section-desc">
+          Click the "Edit Letter" button to customize your own romantic message, express your feelings, and save it forever!
+        </p>
+      </div>
+
+      <div class="letter-wrapper">
+        <div class="letter-envelope">
+          <div class="envelope-header">
+            <div class="envelope-to">Dearest <span class="dynamic-bf-name">My Love</span>,</div>
+            <div class="letter-actions-top">
+              <button id="btnEditLetter" class="btn-small btn-edit" onclick="toggleLetterEdit()">✏️ Edit Letter</button>
+              <button id="btnSaveLetter" class="btn-small btn-save" style="display: none;" onclick="saveLetter()">💾 Save Letter</button>
+              <button id="btnResetLetter" class="btn-small btn-reset" onclick="resetLetter()" title="Reset to default message">🔄 Reset</button>
+            </div>
+          </div>
+
+          <!-- Printable / Read-only Paper View -->
+          <div id="letterPaperContent" class="paper-content">
+            <!-- Dynamically populated -->
+          </div>
+
+          <!-- Edit Mode Textarea -->
+          <textarea id="letterEditBox" class="letter-edit-box" placeholder="Write your heartfelt birthday wishes and love letter here..."></textarea>
+
+          <div class="letter-footer">
+            <div class="letter-signature">
+              Forever Yours, <span class="dynamic-sender-name">Forever Yours</span> ❤️
+            </div>
+            <div class="letter-date">
+              Written with all my love ✨
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: PHOTO ALBUM & UPLOAD -->
+    <section class="section" id="gallerySection">
+      <div class="section-header">
+        <div class="section-tag">Memories We Cherish</div>
+        <h2 class="section-title">Our Moments Together 📸</h2>
+        <p class="section-desc">
+          Upload sweet photos of both of you! Add captions, dates, and build your unforgettable memory album.
+        </p>
+      </div>
+
+      <!-- Upload Zone -->
+      <div class="upload-panel" id="uploadDropZone">
+        <div class="upload-inside">
+          <div class="upload-icon">📷</div>
+          <div class="upload-title">Add Photos of Us</div>
+          <p class="upload-desc">
+            Drag & drop your photos here, or click to choose from your phone / computer. All photos will stay safely saved in your browser!
+          </p>
+
+          <div class="upload-fields">
+            <input type="text" id="uploadCaption" class="custom-input input-caption" placeholder="Caption (e.g., That special evening we talked for hours...)" />
+            <input type="text" id="uploadDate" class="custom-input input-date" placeholder="Date / Memory time" />
+            <input type="text" id="uploadTag" class="custom-input input-tag" placeholder="Tag (e.g., Us, First Date, Trip)" />
+          </div>
+
+          <div class="file-upload-btn-wrap">
+            <input type="file" id="photoFileInput" accept="image/*" multiple />
+            <button class="btn-primary" onclick="triggerPhotoInput()">
+              <span>➕ Choose Photos & Upload</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Polaroid Scrapbook Photo Gallery -->
+      <div class="gallery-grid" id="photoGalleryGrid">
+        <!-- Rendered by script.js -->
+      </div>
+    </section>
+
+    <!-- SECTION 3: INTERACTIVE BIRTHDAY CAKE -->
+    <section class="section" id="cakeSection">
+      <div class="section-header">
+        <div class="section-tag">Make A Special Wish</div>
+        <h2 class="section-title">Virtual Birthday Cake 🎂</h2>
+        <p class="section-desc">
+          Close your eyes, make a sweet birthday wish, and blow out the candles!
+        </p>
+      </div>
+
+      <div class="cake-container">
+        <div class="cake-stage" onclick="blowCandles()" title="Click to blow out candles!">
+          <!-- Lit Candles with Flickering Flames -->
+          <div class="candles-group">
+            <div class="candle">
+              <div class="candle-wick"></div>
+              <div class="candle-flame"></div>
+              <div class="smoke-puff"></div>
+            </div>
+            <div class="candle">
+              <div class="candle-wick"></div>
+              <div class="candle-flame"></div>
+              <div class="smoke-puff"></div>
+            </div>
+            <div class="candle">
+              <div class="candle-wick"></div>
+              <div class="candle-flame"></div>
+              <div class="smoke-puff"></div>
+            </div>
+          </div>
+
+          <!-- Tier 2 (Top) -->
+          <div class="cake-tier-top">
+            <div class="cake-frosting-top"></div>
+          </div>
+
+          <!-- Tier 1 (Bottom) -->
+          <div class="cake-tier-bottom">
+            <div class="cake-frosting-bottom"></div>
+          </div>
+
+          <!-- Plate -->
+          <div class="cake-plate"></div>
+        </div>
+
+        <div class="cake-instructions">
+          ✨ Click the candles or the button below to blow them out! ✨
+        </div>
+
+        <button id="cakeActionBtn" class="blow-candles-btn" onclick="blowCandles()">
+          🎂 Blow Out The Candles! 💨
+        </button>
+
+        <!-- Secret birthday wish unlocked card -->
+        <div id="wishUnlockedCard" class="wish-unlocked-card">
+          <div class="wish-unlocked-title">Happy Birthday, My Heart! 🥳🎉</div>
+          <p style="font-size: 1.1rem; line-height: 1.7; color: #fff;">
+            May all the secret wishes in your heart turn into reality. May this year bring you endless joy, peace, triumphs, and moments that make you smile so wide. I love you so much! ❤️
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: REASONS WHY I LOVE YOU -->
+    <section class="section">
+      <div class="section-header">
+        <div class="section-tag">A Few Reminders</div>
+        <h2 class="section-title">Reasons Why You Mean The World To Me 💖</h2>
+        <p class="section-desc">Just a few of the million reasons why I fell in love with you.</p>
+      </div>
+
+      <div class="reasons-grid">
+        <div class="reason-card">
+          <div class="reason-number">01</div>
+          <div class="reason-emoji">✨</div>
+          <div class="reason-title">Your Caring Nature</div>
+          <div class="reason-desc">The genuine way you check on me, care about my little things, and make me feel so deeply protected and valued every day.</div>
+        </div>
+
+        <div class="reason-card">
+          <div class="reason-number">02</div>
+          <div class="reason-emoji">😂</div>
+          <div class="reason-title">Your Infectious Laugh</div>
+          <div class="reason-desc">Hearing you laugh and crack silly jokes is hands down my favorite sound. You always know how to brighten my mood.</div>
+        </div>
+
+        <div class="reason-card">
+          <div class="reason-number">03</div>
+          <div class="reason-emoji">🏡</div>
+          <div class="reason-title">My Safest Haven</div>
+          <div class="reason-desc">No matter how chaotic the outside world is, just talking to you or being in your arms makes everything calm and peaceful.</div>
+        </div>
+
+        <div class="reason-card">
+          <div class="reason-number">04</div>
+          <div class="reason-emoji">🔥</div>
+          <div class="reason-title">Your Drive & Ambition</div>
+          <div class="reason-desc">I admire how dedicated, passionate, and hardworking you are towards your goals. I am so proud of everything you do!</div>
+        </div>
+
+        <div class="reason-card">
+          <div class="reason-number">05</div>
+          <div class="reason-emoji">☕</div>
+          <div class="reason-title">All Our Little Moments</div>
+          <div class="reason-desc">Late night calls, random conversations, shared dreams, and laughing over nothing—every second with you is a treasure.</div>
+        </div>
+
+        <div class="reason-card">
+          <div class="reason-number">06</div>
+          <div class="reason-emoji">💍</div>
+          <div class="reason-title">Just Being YOU</div>
+          <div class="reason-desc">You accept me for who I am and give me unconditional love. There is no one else in this world I'd rather choose every single day.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-text">Happiest Birthday To My Forever Favorite Person ❤️</div>
+      <div class="footer-sub">Crafted with love, hugs, and endless sweet wishes for you!</div>
+    </footer>
+
+  </div>
+
+  <!-- Lightbox Modal for Fullscreen Photos -->
+  <div id="lightboxModal" class="lightbox-modal" onclick="closeLightbox()">
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+      <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+      <button class="lightbox-nav-btn lightbox-prev" onclick="navLightbox(-1)">&#10094;</button>
+      <button class="lightbox-nav-btn lightbox-next" onclick="navLightbox(1)">&#10095;</button>
+
+      <div class="lightbox-img-wrap">
+        <img id="lightboxImg" class="lightbox-img" src="" alt="Enlarged Memory" />
+      </div>
+      <div id="lightboxCaption" class="lightbox-caption"></div>
+      <div id="lightboxMeta" class="lightbox-meta"></div>
+    </div>
+  </div>
+
+  <!-- Settings Modal (Personalize) -->
+  <div id="settingsModal" class="settings-modal" onclick="closeSettingsModal()">
+    <div class="settings-card" onclick="event.stopPropagation()">
+      <div class="settings-header">
+        <div class="settings-title">⚙️ Personalize Details</div>
+        <button class="lightbox-close" style="position: static;" onclick="closeSettingsModal()">&times;</button>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="settingBfName">Boyfriend's Name / Nickname:</label>
+        <input type="text" id="settingBfName" class="form-input" placeholder="e.g., Charan, Karthik, Sunny, My Love" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="settingSenderName">Your Name / Signature:</label>
+        <input type="text" id="settingSenderName" class="form-input" placeholder="e.g., Hyndavi, Your Wifey, Forever Yours" />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="settingBdayDate">Birthday Date (For Countdown):</label>
+        <input type="date" id="settingBdayDate" class="form-input" />
+      </div>
+
+      <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 25px;">
+        <button class="btn-secondary" onclick="closeSettingsModal()">Cancel</button>
+        <button class="btn-primary" onclick="saveSettings()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="music.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
