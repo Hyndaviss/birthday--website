@@ -218,7 +218,7 @@ function resetLetter() {
 const SAMPLE_PHOTOS = [
   {
     id: 'photo_sample_1',
-    dataUrl: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600"><defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%23ff758c"/><stop offset="100%" stop-color="%23ff7eb3"/></linearGradient></defs><rect width="600" height="600" rx="16" fill="url(%23g1)"/><circle cx="300" cy="260" r="130" fill="%23fff" opacity="0.2"/><text x="50%" y="290" font-size="110" text-anchor="middle">💑</text><text x="50%" y="420" font-size="32" font-family="sans-serif" font-weight="bold" fill="%23fff" text-anchor="middle">You &amp; Me Forever ❤️</text><text x="50%" y="465" font-size="20" font-family="sans-serif" fill="%23ffe3eb" text-anchor="middle">(Click + Choose Photos to add our real picture!)</text></svg>',
+    dataUrl: 'assets/images/photo1.svg',
     caption: 'You & Me Forever ❤️',
     date: 'Our Sweet Memory',
     tag: 'Us Two',
@@ -226,19 +226,45 @@ const SAMPLE_PHOTOS = [
   },
   {
     id: 'photo_sample_2',
-    dataUrl: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600"><defs><linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%237928ca"/><stop offset="100%" stop-color="%23ff0080"/></linearGradient></defs><rect width="600" height="600" rx="16" fill="url(%23g2)"/><circle cx="300" cy="260" r="130" fill="%23fff" opacity="0.2"/><text x="50%" y="290" font-size="110" text-anchor="middle">✨</text><text x="50%" y="420" font-size="32" font-family="sans-serif" font-weight="bold" fill="%23fff" text-anchor="middle">To My Favorite Human 🎉</text><text x="50%" y="465" font-size="20" font-family="sans-serif" fill="%23ffe3eb" text-anchor="middle">The Best Smile in the Universe</text></svg>',
+    dataUrl: 'assets/images/photo2.svg',
     caption: 'Celebrating My Favorite Human 🎂',
     date: 'Birthday Special',
     tag: 'My Love',
     timestamp: 2
+  },
+  {
+    id: 'photo_sample_3',
+    dataUrl: 'assets/images/photo3.svg',
+    caption: 'Lost In The Stars With You ✨',
+    date: 'Late Night Talks',
+    tag: 'Special Moments',
+    timestamp: 3
+  },
+  {
+    id: 'photo_sample_4',
+    dataUrl: 'assets/images/photo4.svg',
+    caption: 'All Our Sweet Little Moments ☕',
+    date: 'Favorite Days',
+    tag: 'Endless Laughs',
+    timestamp: 4
   }
 ];
 
 async function loadPhotos() {
   try {
     currentPhotos = await dbGetAllPhotos();
-    if (currentPhotos.length === 0 && !localStorage.getItem('initial_photos_seeded')) {
-      // Seed initial welcoming samples on first visit
+    
+    // Check if we need to seed or upgrade samples to the new assets/images/ files
+    const hasAssetsVersion = localStorage.getItem('assets_images_v2');
+    if (!hasAssetsVersion) {
+      // Remove old inline data URIs and replace with clean relative asset paths
+      for (const sample of SAMPLE_PHOTOS) {
+        await dbSavePhoto(sample);
+      }
+      localStorage.setItem('assets_images_v2', 'true');
+      localStorage.setItem('initial_photos_seeded', 'true');
+      currentPhotos = await dbGetAllPhotos();
+    } else if (currentPhotos.length === 0 && !localStorage.getItem('initial_photos_seeded')) {
       for (const sample of SAMPLE_PHOTOS) {
         await dbSavePhoto(sample);
       }

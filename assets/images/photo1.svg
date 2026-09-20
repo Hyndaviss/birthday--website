@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+  <defs>
+    <linearGradient id="skyGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2d1030"/>
+      <stop offset="35%" stop-color="#73264d"/>
+      <stop offset="65%" stop-color="#d9536f"/>
+      <stop offset="85%" stop-color="#ff9a76"/>
+      <stop offset="100%" stop-color="#ffc371"/>
+    </linearGradient>
+    <radialGradient id="sunGlow1" cx="50%" cy="65%" r="45%">
+      <stop offset="0%" stop-color="#fff6e5" stop-opacity="0.95"/>
+      <stop offset="30%" stop-color="#ffb17a" stop-opacity="0.6"/>
+      <stop offset="70%" stop-color="#d9536f" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="hillGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#200d24"/>
+      <stop offset="100%" stop-color="#110514"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="800" height="800" fill="url(#skyGrad1)"/>
+  
+  <!-- Glowing Sun / Warm Horizon -->
+  <circle cx="400" cy="520" r="280" fill="url(#sunGlow1)"/>
+  <circle cx="400" cy="500" r="65" fill="#ffffff" opacity="0.85"/>
+
+  <!-- Twinkling stars / sparkles in evening sky -->
+  <circle cx="150" cy="120" r="3" fill="#ffffff" opacity="0.8"/>
+  <circle cx="230" cy="80" r="2" fill="#ffccd5" opacity="0.7"/>
+  <circle cx="680" cy="140" r="3" fill="#ffffff" opacity="0.85"/>
+  <circle cx="620" cy="90" r="2.5" fill="#ffccd5" opacity="0.75"/>
+  <circle cx="340" cy="160" r="2" fill="#ffffff" opacity="0.6"/>
+  <circle cx="510" cy="110" r="3" fill="#ffffff" opacity="0.8"/>
+
+  <!-- Birds flying in horizon -->
+  <path d="M 280 280 Q 295 265 310 280 Q 325 265 340 280 Q 325 272 310 283 Q 295 272 280 280 Z" fill="#4a1532" opacity="0.6"/>
+  <path d="M 330 240 Q 342 228 354 240 Q 366 228 378 240 Q 366 233 354 243 Q 342 233 330 240 Z" fill="#4a1532" opacity="0.5"/>
+
+  <!-- Hills -->
+  <path d="M 0 620 Q 200 560 400 600 T 800 580 L 800 800 L 0 800 Z" fill="#1b081e"/>
+  <path d="M 0 650 Q 250 600 500 640 T 800 630 L 800 800 L 0 800 Z" fill="url(#hillGrad)"/>
+
+  <!-- Couple Silhouette on Hill Holding Hands -->
+  <g fill="#0e0411" transform="translate(325, 430)">
+    <!-- Boy Silhouette -->
+    <ellipse cx="60" cy="40" rx="16" ry="18"/> <!-- Head -->
+    <path d="M 42 58 Q 60 52 78 58 L 84 120 L 74 200 L 63 200 L 61 130 L 59 200 L 48 200 L 38 120 Z"/> <!-- Body & Legs -->
+    <path d="M 42 62 Q 25 90 28 125 Q 35 125 40 100 Z"/> <!-- Left Arm -->
+    <path d="M 76 65 Q 85 95 98 115 Q 102 110 90 85 Z"/> <!-- Right Arm holding hands -->
+
+    <!-- Girl Silhouette -->
+    <ellipse cx="120" cy="48" rx="14" ry="16"/> <!-- Head -->
+    <!-- Hair -->
+    <path d="M 106 45 Q 115 28 132 40 Q 140 55 136 78 Q 128 85 120 80 Q 112 75 106 45 Z"/>
+    <path d="M 106 64 Q 120 58 134 64 L 140 120 Q 155 160 160 195 L 145 198 L 130 145 L 126 198 L 114 198 Q 110 160 105 120 Z"/> <!-- Body/Dress -->
+    <path d="M 108 68 Q 98 92 98 115 Q 104 115 114 90 Z"/> <!-- Left Arm holding boy hand -->
+    <path d="M 132 68 Q 145 92 150 115 Q 145 118 136 95 Z"/> <!-- Right Arm -->
+
+    <!-- Floating Heart Above Hands -->
+    <path d="M 98 96 C 92 88 84 92 84 100 C 84 108 98 116 98 120 C 98 116 112 108 112 100 C 112 92 104 88 98 96 Z" fill="#ff4d79" opacity="0.9"/>
+  </g>
+
+  <!-- Romantic Text Overlay at the Bottom -->
+  <rect x="0" y="690" width="800" height="110" fill="url(#hillGrad)"/>
+  <text x="400" y="735" font-family="'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="bold" fill="#ffffff" text-anchor="middle" letter-spacing="1">
+    YOU &amp; ME FOREVER ❤️
+  </text>
+  <text x="400" y="768" font-family="'Segoe UI', Roboto, sans-serif" font-size="17" fill="#ffccd5" text-anchor="middle" letter-spacing="0.5">
+    Every sunset is sweeter with you by my side
+  </text>
+</svg>
