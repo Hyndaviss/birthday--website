@@ -76,8 +76,9 @@ If you want to send him a live link on WhatsApp so he can open it on his phone:
 - **`music.js`**: Web Audio romantic music synthesizer + custom MP3 player.
 - **`assets/images/`**: Dedicated folder containing all image & photo assets:
   - `favicon.svg`: Glowing heart favicon icon.
-  - `photo1.svg`: Sunset couple holding hands memory.
-  - `photo2.svg`: Birthday celebration cake with sparkles.
-  - `photo3.svg`: Stargazing night memory.
-  - `photo4.svg`: Cozy coffee date memory.
-  *(You can also place your own JPG or PNG photos directly into this folder!)*
+  - `photo1.jpg`: NO NAZARRR.... (15/09/2026)
+  - `photo2.jpg`: BEACH WINDS (14/04/2026)
+  - `photo3.jpg`: HANDSOME (08/09/2026)
+  - `photo4.jpg`: MANDI..LONG TIME MEET (27/08/2026)
+  - `photo5.jpg`: A DAY OUT WITH MINE (2025)
+

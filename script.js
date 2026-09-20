@@ -217,36 +217,44 @@ function resetLetter() {
 // --- 6. Photo Album & Upload Logic ---
 const SAMPLE_PHOTOS = [
   {
-    id: 'photo_sample_1',
-    dataUrl: 'assets/images/photo1.svg',
-    caption: 'You & Me Forever ❤️',
-    date: 'Our Sweet Memory',
-    tag: 'Us Two',
+    id: 'photo_real_1',
+    dataUrl: 'assets/images/photo1.jpg',
+    caption: 'NO NAZARRR....',
+    date: '15/09/2026',
+    tag: 'Bujjuluuu',
     timestamp: 1
   },
   {
-    id: 'photo_sample_2',
-    dataUrl: 'assets/images/photo2.svg',
-    caption: 'Celebrating My Favorite Human 🎂',
-    date: 'Birthday Special',
-    tag: 'My Love',
+    id: 'photo_real_2',
+    dataUrl: 'assets/images/photo2.jpg',
+    caption: 'BEACH WINDS',
+    date: '14/04/2026',
+    tag: 'us togetherr',
     timestamp: 2
   },
   {
-    id: 'photo_sample_3',
-    dataUrl: 'assets/images/photo3.svg',
-    caption: 'Lost In The Stars With You ✨',
-    date: 'Late Night Talks',
-    tag: 'Special Moments',
+    id: 'photo_real_3',
+    dataUrl: 'assets/images/photo3.jpg',
+    caption: 'HANDSOME',
+    date: '08/09/2026',
+    tag: 'Bangaraaluuuu...',
     timestamp: 3
   },
   {
-    id: 'photo_sample_4',
-    dataUrl: 'assets/images/photo4.svg',
-    caption: 'All Our Sweet Little Moments ☕',
-    date: 'Favorite Days',
-    tag: 'Endless Laughs',
+    id: 'photo_real_4',
+    dataUrl: 'assets/images/photo4.jpg',
+    caption: 'MANDI..LONG TIME MEET',
+    date: '27/08/2026',
+    tag: 'Just our time',
     timestamp: 4
+  },
+  {
+    id: 'photo_real_5',
+    dataUrl: 'assets/images/photo5.jpg',
+    caption: 'A DAY OUT WITH MINE',
+    date: '2025',
+    tag: 'A very special day to us ...',
+    timestamp: 5
   }
 ];
 
@@ -254,26 +262,29 @@ async function loadPhotos() {
   try {
     currentPhotos = await dbGetAllPhotos();
     
-    // Check if we need to seed or upgrade samples to the new assets/images/ files
-    const hasAssetsVersion = localStorage.getItem('assets_images_v2');
-    if (!hasAssetsVersion) {
-      // Remove old inline data URIs and replace with clean relative asset paths
-      for (const sample of SAMPLE_PHOTOS) {
-        await dbSavePhoto(sample);
+    // Auto-sync actual photos to IndexedDB on first load / upgrade
+    if (!localStorage.getItem('actual_photos_v3')) {
+      for (let p of currentPhotos) {
+        if (p.id.startsWith('photo_sample_')) {
+          await dbDeletePhoto(p.id);
+        }
       }
-      localStorage.setItem('assets_images_v2', 'true');
-      localStorage.setItem('initial_photos_seeded', 'true');
+      for (const photo of SAMPLE_PHOTOS) {
+        await dbSavePhoto(photo);
+      }
+      localStorage.setItem('actual_photos_v3', 'true');
       currentPhotos = await dbGetAllPhotos();
-    } else if (currentPhotos.length === 0 && !localStorage.getItem('initial_photos_seeded')) {
-      for (const sample of SAMPLE_PHOTOS) {
-        await dbSavePhoto(sample);
+    } else if (currentPhotos.length === 0) {
+      for (const photo of SAMPLE_PHOTOS) {
+        await dbSavePhoto(photo);
       }
-      localStorage.setItem('initial_photos_seeded', 'true');
       currentPhotos = await dbGetAllPhotos();
     }
     renderGallery();
   } catch (err) {
     console.error('Error loading photos from IndexedDB:', err);
+    currentPhotos = SAMPLE_PHOTOS;
+    renderGallery();
   }
 }
 
